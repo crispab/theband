@@ -59,3 +59,16 @@ to test AlbumService. We just inject mocks.
 ### Mockito when
 The `when` is used to serve a canned answer when a method on a mock is called. It can also be used to throw an
 exception. 
+
+### Returning a computed answer
+You can return a computed answer, based on the input. For instance, if you wish to return what you got,
+as in the case of save an entity:
+       
+`doAnswer(invocation -> invocation.getArgument(0))
+.when(albumRepository).save(isA(AlbumEntity.class));
+`
+
+This means: do answer with the first argument when the repository's save method is called 
+with something that is an AlbumEntity. 
+
+If you don't specify anything, the _default_ is to return null for objects and the default value for primitives.

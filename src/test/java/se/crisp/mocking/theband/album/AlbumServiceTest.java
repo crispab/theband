@@ -1,5 +1,6 @@
 package se.crisp.mocking.theband.album;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -13,6 +14,8 @@ import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -30,6 +33,12 @@ public class AlbumServiceTest {
     private SongService songService;
 
     private static final String SOME_ALBUM_ID = "some album id";
+
+    @Before
+    public void setUp() throws Exception {
+
+        doAnswer(invocation -> invocation.getArgument(0)).when(albumRepository).save(isA(AlbumEntity.class));
+    }
 
     @Test
     public void given_an_album_with_artists_when_asking_for_participants_then_all_song_related_artists() {
