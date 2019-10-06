@@ -52,3 +52,10 @@ that some code is just stubs. They may return an empty collection, no matter of 
 Still, we can test the clients that use that code by using mocks. A service may depend on another service
 that is not done yet. No problem, we just put in a mock and explore how the interaction between the services
 should be.
+
+E.g. AlbumService depends on both the AlbumRepository and the SongService. But neither needs any implementation
+to test AlbumService. We just inject mocks. 
+
+### Mockito when
+The `when` is used to serve a canned answer when a method on a mock is called. It can also be used to throw an
+exception. 
