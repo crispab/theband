@@ -13,4 +13,12 @@ public class SongRecordingEntity {
 
     @Column
     private String title;
+
+    public void setId(String songId) {
+        this.id = songId;
+    }
+
+    public String getId() {
+        return id;
+    }
 }
