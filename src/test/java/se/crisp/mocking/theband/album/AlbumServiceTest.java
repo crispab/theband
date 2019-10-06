@@ -33,15 +33,12 @@ public class AlbumServiceTest {
 
     @Test
     public void given_an_album_with_artists_when_asking_for_participants_then_all_song_related_artists() {
-        AlbumEntity album = new AlbumEntity();
-        SongRecordingEntity someSong = new SongRecordingEntity();
-        someSong.setId(SOME_SONG_ID);
-        album.addSongRecording(someSong);
+        // Given
+        AlbumEntity album = anAlbumWithASong();
 
-        List<String> artistList = createListOfThreeArtistId();
-        when(songService.artistsOnSong(SOME_SONG_ID)).thenReturn(artistList);
+        theSongHasThreeArtists();
 
-        when(albumRepository.findById(SOME_ALBUM_ID)).thenReturn(Optional.of(album));
+        theAlbumIsStoredInTheDatabase(album);
 
         AlbumService service = new AlbumService(albumRepository, songService);
 
@@ -50,6 +47,23 @@ public class AlbumServiceTest {
 
         // Then
         assertThat(list.size(), is(3));
+    }
+
+    private AlbumEntity anAlbumWithASong() {
+        AlbumEntity album = new AlbumEntity();
+        SongRecordingEntity someSong = new SongRecordingEntity();
+        someSong.setId(SOME_SONG_ID);
+        album.addSongRecording(someSong);
+        return album;
+    }
+
+    private void theSongHasThreeArtists() {
+        List<String> artistList = createListOfThreeArtistId();
+        when(songService.artistsOnSong(SOME_SONG_ID)).thenReturn(artistList);
+    }
+
+    private void theAlbumIsStoredInTheDatabase(AlbumEntity album) {
+        when(albumRepository.findById(SOME_ALBUM_ID)).thenReturn(Optional.of(album));
     }
 
     private List<String> createListOfThreeArtistId() {
