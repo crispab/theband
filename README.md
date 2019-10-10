@@ -57,18 +57,48 @@ E.g. AlbumService depends on both the AlbumRepository and the SongService. But n
 to test AlbumService. We just inject mocks. 
 
 ### Mockito when
-The `when` is used to serve a canned answer when a method on a mock is called. It can also be used to throw an
-exception. 
+The `when` is used to serve a canned answer when a method on a mock is called.
+
+`when(albumRepository.findById(isNull())).thenThrow(IllegalArgumentException.class);`
+
+It can also be used to throw an exception. 
+
+`when(songService.artistsOnSong(SOME_SONG_ID)).thenReturn();`
+
 
 ### Returning a computed answer
 You can return a computed answer, based on the input. For instance, if you wish to return what you got,
 as in the case of save an entity:
        
-`doAnswer(invocation -> invocation.getArgument(0))
-.when(albumRepository).save(isA(AlbumEntity.class));
+`doAnswer(invocation -> invocation.getArgument(0)).when(albumRepository).save(isA(AlbumEntity.class));
 `
 
 This means: do answer with the first argument when the repository's save method is called 
 with something that is an AlbumEntity. 
 
 If you don't specify anything, the _default_ is to return null for objects and the default value for primitives.
+
+### Mockito verify
+The `verify` is used when you wish to verify interactions. Instead of doing an 
+assert on the result, you verify that some interaction has been taking place, like 
+between a service and a repository.
+
+`verify(albumRepository).save(isA(AlbumEntity.class));`
+
+You can also say there should be no interactions at all.
+
+`verify(albumRepository, never()).save(isA(AlbumEntity.class));`
+
+### Mockito capture
+
+When you verify interaction, sometimes you not only want to verify that 
+it did happen, you may also want to see that the correct parameters were
+passed. For this you will use an argument captor.
+
+1. Get the captor:
+`ArgumentCaptor<AlbumEntity> captor = ArgumentCaptor.forClass(AlbumEntity.class);`
+
+2. Verify and capture the interaction: `verify(albumRepository).save(captor.capture());`
+
+3. Assert the correct value was passed: `assertEquals(SOME_ALBUM_ID, captor.getValue().getId());`
+        
