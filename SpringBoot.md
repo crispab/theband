@@ -31,7 +31,7 @@ As type parameters, the entity class and the type of the primary key is given.
 A number of methods become immediately available, check what your IDE is telling
 you. For instance, `findById`, finds an entity given its id. But you can also 
 create your own by following the pattern, eg `findByName` will find all entities
-with a given name,
+with a given name, assuming that the entity has an attribute called "name".
 
 This reveals you from writing queries for the trivial, common cases. 
 
