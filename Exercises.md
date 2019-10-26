@@ -3,11 +3,6 @@
 Some suggested exercises. The purpose is to learn mocking. If you come with your own,
 pursue them!
 
-## Preparation
-If you have a database running as instructed in the readme, it should be possible
-to get the micro service started. The main class is `ThebandApplication`. 
-Test http://localhost:5705/albums to see it return an empty list.
-
 ## The exercises
 1. Controller - Service interaction
 
@@ -44,3 +39,12 @@ Test http://localhost:5705/albums to see it return an empty list.
     the service calls `save` on the repository with a new UUID.
     
     Hint: use `ArgumentCaptor`, see the README.
+    
+## Live
+
+Of course you like to try it out with the browser.
+
+If you have a database running as instructed in the [ReadMe](README.md), it should be possible
+to get the application started. The main class is `ThebandApplication`. 
+Test http://localhost:5705/albums to see it return an empty list.
+    

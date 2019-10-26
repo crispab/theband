@@ -1,5 +1,12 @@
 # The Band - a Mockito kata
 
+## Overview
+This document explains a little about mocking and the idea for the exercises.
+
+[Exercises](Exercises.md) is where the exercises are.
+
+[Spring Boot](SpringBoot.md) is a primer for Spring Boot and Flyway.
+
 ## Background
 Back in the 80's everyone asked the question. What would you use a personal computer for, except playing games?
 The answer was - keep a register of your record collection!
@@ -102,3 +109,6 @@ passed. For this you will use an argument captor.
 
 3. Assert the correct value was passed: `assertEquals(SOME_ALBUM_ID, captor.getValue().getId());`
         
+## Read more
+
+Mockito https://site.mockito.org/
