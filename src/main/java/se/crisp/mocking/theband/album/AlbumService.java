@@ -30,4 +30,8 @@ public class AlbumService {
         SongRecordingEntity songRecordingEntity = album.get().getSongRecordings().get(0);
         return this.songService.artistsOnSong(songRecordingEntity.getId());
     }
+
+    public List<AlbumEntity> findAll() {
+        return albumRepository.findAll();
+    }
 }

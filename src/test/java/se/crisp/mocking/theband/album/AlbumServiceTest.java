@@ -14,8 +14,7 @@ import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.doAnswer;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -35,9 +34,9 @@ public class AlbumServiceTest {
     private static final String SOME_ALBUM_ID = "some album id";
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
 
-        doAnswer(invocation -> invocation.getArgument(0)).when(albumRepository).save(isA(AlbumEntity.class));
+        // doAnswer(invocation -> invocation.getArgument(0)).when(albumRepository).save(isA(AlbumEntity.class));
     }
 
     @Test
@@ -56,6 +55,20 @@ public class AlbumServiceTest {
 
         // Then
         assertThat(list.size(), is(3));
+    }
+
+    @Test
+    public void given_an_album_with_no_songs_then_no_one_is_appering_on_the_album() {
+        // Given
+        AlbumEntity album = new AlbumEntity();
+
+        AlbumService service = new AlbumService(albumRepository, songService);
+
+        // When
+        List<String> list = service.appearingOnAlbum(SOME_ALBUM_ID);
+
+        // Then
+        assertTrue(list.isEmpty());
     }
 
     private AlbumEntity anAlbumWithASong() {
